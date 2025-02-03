@@ -1,0 +1,582 @@
+{
+  "FBS": {
+    "Normal": {
+      "Range": "(70, 105)",
+      "Age": {
+        "Baby (0-2 years)": "N/A",
+        "Child (3-12 years)": "N/A",
+        "Young Adult (20-35 years)": "70-105 mg/dl",
+        "Adult (36-64 years)": "70-105 mg/dl",
+        "Senior (65+ years)": "70-105 mg/dl"
+      },
+      "Sex": {
+        "Male": "70-105 mg/dl",
+        "Female": "70-105 mg/dl"
+      },
+      "Medication": [
+        "No medication required; maintain a healthy lifestyle"
+      ],
+      "Dosage": {
+        "N/A": "N/A"
+      },
+      "Reason": [
+        "Normal fasting blood sugar indicates effective glucose regulation and low risk for diabetes.",
+        "Continued adherence to balanced nutrition and regular exercise is recommended."
+      ],
+      "Conclusion": "Fasting blood sugar is within normal limits. Continue healthy dietary and exercise habits to sustain optimal glucose control."
+    },
+    "Prediabetes": {
+      "Range": "(106, 125)",
+      "Age": {
+        "Baby (0-2 years)": "Not recommended for babies",
+        "Child (3-12 years)": "Not recommended for children",
+        "Young Adult (20-35 years)": "106-125 mg/dl; consider Metformin if lifestyle changes are insufficient",
+        "Adult (36-64 years)": "106-125 mg/dl; consider Metformin if indicated",
+        "Senior (65+ years)": "106-125 mg/dl; initiate Metformin cautiously with renal assessment"
+      },
+      "Sex": {
+        "Male": "106-125 mg/dl; dosage may require adjustment based on metabolic profile",
+        "Female": "106-125 mg/dl; dosage may require adjustment based on metabolic profile"
+      },
+      "Medication": [
+        "Metformin (if indicated by clinical evaluation)"
+      ],
+      "Dosage": {
+        "Young Adult": "500 mg twice daily with meals",
+        "Adult": "500 mg three times daily with meals",
+        "Senior": "500 mg twice daily with meals (dose adjusted for renal function)"
+      },
+      "Reason": [
+        "Fasting blood sugar in the prediabetic range signals early insulin resistance.",
+        "Risk factors such as obesity and sedentary behavior warrant both lifestyle modifications and possible metformin therapy."
+      ],
+      "Conclusion": "Blood sugar levels in the 106-125 mg/dl range indicate prediabetes. Implement rigorous lifestyle modifications and consider initiating metformin therapy after appropriate evaluation."
+    }
+  },
+  "BUN": {
+    "Range": "(7.0, 23.3)",
+    "Age": {
+      "Baby (0-2 years)": "7.0-18.0 mg/dl",
+      "Child (3-12 years)": "7.0-18.0 mg/dl",
+      "Young Adult (20-35 years)": "7.0-18.0 mg/dl",
+      "Adult (36-64 years)": "7.0-23.3 mg/dl",
+      "Senior (65+ years)": "7.0-23.3 mg/dl (may vary with kidney function)"
+    },
+    "Sex": {
+      "Male": "7.0-23.3 mg/dl (consider kidney function adjustments)",
+      "Female": "7.0-23.3 mg/dl (consider kidney function adjustments)"
+    },
+    "Medication": [
+      "No medication required"
+    ],
+    "Dosage": {
+      "N/A": "N/A"
+    },
+    "Reason": [
+      "Normal BUN levels indicate proper kidney filtration and adequate hydration."
+    ],
+    "Conclusion": "BUN is within normal limits. Continue maintaining proper hydration and routine monitoring of kidney function."
+  },
+  "Creatinine": {
+    "Range": "(0.6, 1.44)",
+    "Age": {
+      "Baby (0-2 years)": "0.2-0.5 mg/dl",
+      "Child (3-12 years)": "0.3-0.7 mg/dl",
+      "Young Adult (20-35 years)": "0.6-1.1 mg/dl",
+      "Adult (36-64 years)": "0.6-1.3 mg/dl",
+      "Senior (65+ years)": "0.6-1.3 mg/dl (may vary with renal function)"
+    },
+    "Sex": {
+      "Male": "0.6-1.3 mg/dl",
+      "Female": "0.5-1.1 mg/dl"
+    },
+    "Medication": [
+      "No specific medication if normal; consult nephrology if elevated"
+    ],
+    "Dosage": {
+      "N/A": "N/A"
+    },
+    "Reason": [
+      "Creatinine within normal range reflects healthy kidney function.",
+      "Elevated levels would warrant further renal evaluation and possible adjustment of diuretic therapy."
+    ],
+    "Conclusion": "Creatinine is normal. Regular monitoring is recommended to ensure ongoing kidney health."
+  },
+  "Uric Acid": {
+    "Range": "(3.45, 7.0)",
+    "Current Level": "7.3 mg/dl",
+    "Age": {
+      "Baby (0-2 years)": "3.0-6.0 mg/dl",
+      "Child (3-12 years)": "3.0-6.0 mg/dl",
+      "Young Adult (20-35 years)": "3.5-7.0 mg/dl",
+      "Adult (36-64 years)": "3.5-7.0 mg/dl",
+      "Senior (65+ years)": "3.5-7.0 mg/dl"
+    },
+    "Sex": {
+      "Male": "3.5-7.0 mg/dl",
+      "Female": "3.5-6.0 mg/dl"
+    },
+    "Medication": [
+      "Allopurinol (if clinical symptoms of gout are present)"
+    ],
+    "Dosage": {
+      "Young Adult": "Start at 100 mg daily; adjust as needed",
+      "Adult": "100-200 mg daily based on clinical response",
+      "Senior": "50-100 mg daily with careful monitoring"
+    },
+    "Reason": [
+      "A slightly elevated uric acid level increases the risk of gout and kidney stones.",
+      "Dietary modifications and weight management are also recommended."
+    ],
+    "Conclusion": "Mild hyperuricemia is detected. Initiate lifestyle changes and consider pharmacologic therapy if symptoms develop."
+  },
+  "Cholesterol": {
+    "Range": "(131, 200)",
+    "Current Level": "186.15 mg/dl",
+    "Age": {
+      "Baby (0-2 years)": "N/A",
+      "Child (3-12 years)": "N/A",
+      "Young Adult (20-35 years)": "131-200 mg/dl",
+      "Adult (36-64 years)": "131-200 mg/dl",
+      "Senior (65+ years)": "131-200 mg/dl"
+    },
+    "Sex": {
+      "Male": "131-200 mg/dl",
+      "Female": "131-200 mg/dl"
+    },
+    "Medication": [
+      "Statins may be considered if risk factors for cardiovascular disease are present"
+    ],
+    "Dosage": {
+      "Young Adult": "Atorvastatin 10-20 mg once daily",
+      "Adult": "Atorvastatin 20-40 mg once daily",
+      "Senior": "Atorvastatin 10-20 mg once daily (adjust for comorbidities)"
+    },
+    "Reason": [
+      "Cholesterol is within the normal range; however, proactive management may be warranted in patients with additional cardiovascular risks."
+    ],
+    "Conclusion": "Cholesterol levels are normal. Maintain a heart-healthy diet and lifestyle to minimize cardiovascular risk."
+  },
+  "Triglycerides": {
+    "Range": "(40.0, 165)",
+    "Current Level": "186.36 mg/dl",
+    "Age": {
+      "Baby (0-2 years)": "N/A",
+      "Child (3-12 years)": "N/A",
+      "Young Adult (20-35 years)": "40.0-165 mg/dl",
+      "Adult (36-64 years)": "40.0-165 mg/dl",
+      "Senior (65+ years)": "40.0-165 mg/dl"
+    },
+    "Sex": {
+      "Male": "40.0-165 mg/dl",
+      "Female": "40.0-165 mg/dl"
+    },
+    "Medication": [
+      "Fibrates (e.g., Fenofibrate) may be indicated"
+    ],
+    "Dosage": {
+      "Young Adult": "Fenofibrate 145 mg once daily",
+      "Adult": "Fenofibrate 145 mg once daily",
+      "Senior": "Fenofibrate 145 mg once daily (adjust dose if necessary)"
+    },
+    "Reason": [
+      "Elevated triglycerides are associated with increased cardiovascular risk and may indicate metabolic syndrome.",
+      "Lifestyle modifications such as weight loss and dietary changes are recommended."
+    ],
+    "Conclusion": "Triglyceride levels are high. Implement dietary and lifestyle modifications and consider fibrate therapy if levels remain elevated."
+  },
+  "VLDL": {
+    "Range": "(0, 35)",
+    "Current Level": "35.77 mg/dl",
+    "Age": {
+      "Baby (0-2 years)": "N/A",
+      "Child (3-12 years)": "N/A",
+      "Young Adult (20-35 years)": "0-35 mg/dl",
+      "Adult (36-64 years)": "0-35 mg/dl",
+      "Senior (65+ years)": "0-35 mg/dl"
+    },
+    "Sex": {
+      "Male": "0-35 mg/dl",
+      "Female": "0-35 mg/dl"
+    },
+    "Medication": [
+      "Lipid-lowering agents (e.g., statins) may be considered if overall risk is high"
+    ],
+    "Dosage": {
+      "Young Adult": "Refer to statin dosing guidelines",
+      "Adult": "Refer to statin dosing guidelines",
+      "Senior": "Refer to statin dosing guidelines"
+    },
+    "Reason": [
+      "Slightly elevated VLDL levels contribute to atherosclerosis and increased cardiovascular risk.",
+      "Dietary fat reduction and weight management are beneficial."
+    ],
+    "Conclusion": "VLDL is marginally elevated. Emphasize lifestyle changes and consider lipid-lowering therapy based on overall cardiovascular risk assessment."
+  },
+  "HDL": {
+    "Range": "(35, 65)",
+    "Current Level": "35.77 mg/dl",
+    "Age": {
+      "Baby (0-2 years)": "N/A",
+      "Child (3-12 years)": "N/A",
+      "Young Adult (20-35 years)": "35-65 mg/dl",
+      "Adult (36-64 years)": "35-65 mg/dl",
+      "Senior (65+ years)": "35-65 mg/dl"
+    },
+    "Sex": {
+      "Male": "35-65 mg/dl",
+      "Female": "35-65 mg/dl"
+    },
+    "Medication": [
+      "Niacin or other HDL-raising agents may be considered"
+    ],
+    "Dosage": {
+      "Young Adult": "Niacin 500 mg once daily (titrate as needed)",
+      "Adult": "Niacin 500 mg twice daily with meals",
+      "Senior": "Niacin 500 mg once daily with food"
+    },
+    "Reason": [
+      "Low HDL is linked to higher cardiovascular risk. Increasing HDL through exercise and healthy fats can be beneficial.",
+      "Pharmacologic intervention may be considered if lifestyle modifications are inadequate."
+    ],
+    "Conclusion": "HDL is at the lower end of normal. Emphasize lifestyle interventions and consider niacin supplementation if clinically warranted."
+  },
+  "LDL": {
+    "Range": "(0, 150)",
+    "Current Level": "114.62 mg/dl",
+    "Age": {
+      "Baby (0-2 years)": "N/A",
+      "Child (3-12 years)": "N/A",
+      "Young Adult (20-35 years)": "0-150 mg/dl",
+      "Adult (36-64 years)": "0-150 mg/dl",
+      "Senior (65+ years)": "0-150 mg/dl"
+    },
+    "Sex": {
+      "Male": "0-150 mg/dl",
+      "Female": "0-150 mg/dl"
+    },
+    "Medication": [
+      "Statins may be prescribed if LDL reduction is necessary"
+    ],
+    "Dosage": {
+      "N/A": "No medication required if levels remain within target range; focus on diet and exercise"
+    },
+    "Reason": [
+      "LDL is within acceptable limits, but maintaining a low saturated fat intake and regular physical activity is crucial for cardiovascular health."
+    ],
+    "Conclusion": "LDL is acceptable. Continue preventive measures to maintain optimal lipid levels."
+  },
+  "CHOL/HDL Ratio": {
+    "Range": "(0, 4)",
+    "Current Level": "5.2",
+    "Age": {
+      "Baby (0-2 years)": "N/A",
+      "Child (3-12 years)": "N/A",
+      "Young Adult (20-35 years)": "0-4",
+      "Adult (36-64 years)": "0-4",
+      "Senior (65+ years)": "0-4"
+    },
+    "Sex": {
+      "Male": "0-4",
+      "Female": "0-4"
+    },
+    "Medication": [
+      "Statins may be considered to improve overall lipid profile"
+    ],
+    "Dosage": {
+      "Young Adult": "Atorvastatin 10 mg once daily",
+      "Adult": "Atorvastatin 20 mg once daily",
+      "Senior": "Atorvastatin 10 mg once daily"
+    },
+    "Reason": [
+      "An elevated CHOL/HDL ratio is an independent risk factor for cardiovascular events.",
+      "Addressing both total cholesterol and HDL levels is important in reducing risk."
+    ],
+    "Conclusion": "The CHOL/HDL ratio is elevated. Consider intensive lifestyle modifications and, if necessary, statin therapy after cardiovascular risk assessment."
+  },
+  "SGPT/ALT": {
+    "Range": "(7, 40)",
+    "Current Level": "42 U/L",
+    "Age": {
+      "Baby (0-2 years)": "N/A",
+      "Child (3-12 years)": "N/A",
+      "Young Adult (20-35 years)": "7-40 U/L",
+      "Adult (36-64 years)": "7-40 U/L",
+      "Senior (65+ years)": "7-40 U/L"
+    },
+    "Sex": {
+      "Male": "7-40 U/L",
+      "Female": "7-40 U/L"
+    },
+    "Medication": [
+      "Hepatoprotective supplements (e.g., Silymarin) may be beneficial"
+    ],
+    "Dosage": {
+      "Young Adult": "Silymarin 140 mg three times daily with meals",
+      "Adult": "Silymarin 140 mg three times daily with meals",
+      "Senior": "Silymarin 140 mg twice daily (adjusted for tolerance)"
+    },
+    "Reason": [
+      "A slight elevation in ALT suggests mild hepatic stress possibly due to diet or alcohol intake.",
+      "Implementing a liver-friendly diet and reducing hepatotoxic exposures is advised."
+    ],
+    "Conclusion": "ALT is marginally elevated. Adopt liver-protective measures and consider Silymarin supplementation if lifestyle adjustments are insufficient."
+  },
+  "SGOT/AST": {
+    "Range": "(5, 34)",
+    "Current Level": "21 U/L",
+    "Age": {
+      "Baby (0-2 years)": "N/A",
+      "Child (3-12 years)": "N/A",
+      "Young Adult (20-35 years)": "5-34 U/L",
+      "Adult (36-64 years)": "5-34 U/L",
+      "Senior (65+ years)": "5-34 U/L"
+    },
+    "Sex": {
+      "Male": "5-34 U/L",
+      "Female": "5-34 U/L"
+    },
+    "Medication": [
+      "No medication required"
+    ],
+    "Dosage": {
+      "N/A": "N/A"
+    },
+    "Reason": [
+      "AST is within normal limits, indicating preserved liver and muscle function."
+    ],
+    "Conclusion": "AST is normal. Continue routine monitoring and maintain a balanced diet and exercise regimen."
+  },
+  "HbA1C": {
+    "Range": "(4.27, 6.07)",
+    "Current Level": "6.6 %",
+    "Age": {
+      "Baby (0-2 years)": "N/A",
+      "Child (3-12 years)": "N/A",
+      "Young Adult (20-35 years)": "4.27-6.07 %",
+      "Adult (36-64 years)": "4.27-6.07 %",
+      "Senior (65+ years)": "4.27-6.07 %"
+    },
+    "Sex": {
+      "Male": "4.27-6.07 %",
+      "Female": "4.27-6.07 %"
+    },
+    "Medication": [
+      "Metformin is recommended if lifestyle interventions do not normalize glycemic control"
+    ],
+    "Dosage": {
+      "Young Adult": "500 mg twice daily with meals",
+      "Adult": "500 mg three times daily with meals",
+      "Senior": "500 mg twice daily with meals (adjusted for renal function)"
+    },
+    "Reason": [
+      "An elevated HbA1C indicates chronic hyperglycemia and risk for diabetic complications.",
+      "Early intervention with dietary changes, physical activity, and pharmacotherapy is essential."
+    ],
+    "Conclusion": "HbA1C is elevated, suggesting impaired glucose control. Intensify lifestyle modifications and consider metformin therapy to improve glycemic management."
+  },
+  "Sodium": {
+    "Range": "(136, 148)",
+    "Current Level": "137 mEq/L",
+    "Age": {
+      "Baby (0-2 years)": "136-148 mEq/L",
+      "Child (3-12 years)": "136-148 mEq/L",
+      "Young Adult (20-35 years)": "136-148 mEq/L",
+      "Adult (36-64 years)": "136-148 mEq/L",
+      "Senior (65+ years)": "136-148 mEq/L"
+    },
+    "Sex": {
+      "Male": "136-148 mEq/L",
+      "Female": "136-148 mEq/L"
+    },
+    "Medication": [
+      "No medication required"
+    ],
+    "Dosage": {
+      "N/A": "N/A"
+    },
+    "Reason": [
+      "Sodium levels within the normal range reflect proper fluid balance and kidney function."
+    ],
+    "Conclusion": "Sodium is normal. Maintain adequate hydration and monitor electrolyte status routinely."
+  },
+  "Potassium": {
+    "Range": "(3.5, 5.1)",
+    "Current Level": "4.2 mEq/L",
+    "Age": {
+      "Baby (0-2 years)": "3.5-5.1 mEq/L",
+      "Child (3-12 years)": "3.5-5.1 mEq/L",
+      "Young Adult (20-35 years)": "3.5-5.1 mEq/L",
+      "Adult (36-64 years)": "3.5-5.1 mEq/L",
+      "Senior (65+ years)": "3.5-5.1 mEq/L"
+    },
+    "Sex": {
+      "Male": "3.5-5.1 mEq/L",
+      "Female": "3.5-5.1 mEq/L"
+    },
+    "Medication": [
+      "No medication required"
+    ],
+    "Dosage": {
+      "N/A": "N/A"
+    },
+    "Reason": [
+      "Potassium is essential for nerve transmission and muscle contraction, and levels are maintained within a normal range."
+    ],
+    "Conclusion": "Potassium is normal. Continue a balanced diet to sustain electrolyte equilibrium."
+  },
+  "WBC": {
+    "Range": "(4.0, 11.0)",
+    "Current Level": "6.2 x 10^3/μL",
+    "Age": {
+      "Baby (0-2 years)": "6.0-17.5 x 10^3/μL",
+      "Child (3-12 years)": "5.0-13.0 x 10^3/μL",
+      "Young Adult (20-35 years)": "4.0-11.0 x 10^3/μL",
+      "Adult (36-64 years)": "4.0-11.0 x 10^3/μL",
+      "Senior (65+ years)": "4.0-11.0 x 10^3/μL"
+    },
+    "Sex": {
+      "Male": "4.0-11.0 x 10^3/μL",
+      "Female": "4.0-11.0 x 10^3/μL"
+    },
+    "Medication": [
+      "No medication required"
+    ],
+    "Dosage": {
+      "N/A": "N/A"
+    },
+    "Reason": [
+      "A normal WBC count indicates a well-functioning immune system and effective bone marrow activity."
+    ],
+    "Conclusion": "WBC is within normal limits. No intervention is needed."
+  },
+  "Calcium": {
+    "Range": "(8.5, 10.2)",
+    "Current Level": "9.4 mg/dL",
+    "Age": {
+      "Baby (0-2 years)": "8.5-10.5 mg/dL",
+      "Child (3-12 years)": "8.5-10.5 mg/dL",
+      "Young Adult (20-35 years)": "8.5-10.2 mg/dL",
+      "Adult (36-64 years)": "8.5-10.2 mg/dL",
+      "Senior (65+ years)": "8.5-10.2 mg/dL"
+    },
+    "Sex": {
+      "Male": "8.5-10.2 mg/dL",
+      "Female": "8.5-10.2 mg/dL"
+    },
+    "Medication": [
+      "Calcium supplements only if deficiency is documented"
+    ],
+    "Dosage": {
+      "Low Calcium": "Typically 500-1000 mg daily in divided doses when indicated"
+    },
+    "Reason": [
+      "Calcium is critical for bone strength and neuromuscular function.",
+      "Levels within normal limits reflect proper dietary intake and bone metabolism."
+    ],
+    "Conclusion": "Calcium is normal. Supplement only if deficiency is confirmed by laboratory evaluation."
+  },
+  "Magnesium": {
+    "Range": "(1.7, 2.2)",
+    "Current Level": "2.0 mg/dL",
+    "Age": {
+      "Baby (0-2 years)": "1.5-2.5 mg/dL",
+      "Child (3-12 years)": "1.5-2.5 mg/dL",
+      "Young Adult (20-35 years)": "1.7-2.2 mg/dL",
+      "Adult (36-64 years)": "1.7-2.2 mg/dL",
+      "Senior (65+ years)": "1.7-2.2 mg/dL"
+    },
+    "Sex": {
+      "Male": "1.7-2.2 mg/dL",
+      "Female": "1.7-2.2 mg/dL"
+    },
+    "Medication": [
+      "Magnesium supplements if levels are low"
+    ],
+    "Dosage": {
+      "Low Magnesium": "200-400 mg daily, dosage adjusted per clinical assessment"
+    },
+    "Reason": [
+      "Magnesium supports muscle relaxation, nerve function, and metabolic processes.",
+      "Normal levels indicate adequate nutritional intake."
+    ],
+    "Conclusion": "Magnesium is normal. Ensure continued dietary intake to maintain levels."
+  },
+  "Phosphorus": {
+    "Range": "(2.5, 4.5)",
+    "Current Level": "3.2 mg/dL",
+    "Age": {
+      "Baby (0-2 years)": "3.5-6.0 mg/dL",
+      "Child (3-12 years)": "3.0-5.0 mg/dL",
+      "Young Adult (20-35 years)": "2.5-4.5 mg/dL",
+      "Adult (36-64 years)": "2.5-4.5 mg/dL",
+      "Senior (65+ years)": "2.5-4.5 mg/dL"
+    },
+    "Sex": {
+      "Male": "2.5-4.5 mg/dL",
+      "Female": "2.5-4.5 mg/dL"
+    },
+    "Medication": [
+      "Phosphorus supplementation only if deficiency is present"
+    ],
+    "Dosage": {
+      "Low Phosphorus": "Dose based on severity; usually guided by clinical evaluation"
+    },
+    "Reason": [
+      "Phosphorus is essential for bone mineralization and cellular energy production.",
+      "Normal levels confirm adequate nutritional intake and renal function."
+    ],
+    "Conclusion": "Phosphorus is within normal limits. No supplementation is required."
+  },
+  "Albumin": {
+    "Range": "(3.5, 5.0)",
+    "Current Level": "4.1 g/dL",
+    "Age": {
+      "Baby (0-2 years)": "3.5-5.5 g/dL",
+      "Child (3-12 years)": "3.5-5.0 g/dL",
+      "Young Adult (20-35 years)": "3.5-5.0 g/dL",
+      "Adult (36-64 years)": "3.5-5.0 g/dL",
+      "Senior (65+ years)": "3.5-5.0 g/dL"
+    },
+    "Sex": {
+      "Male": "3.5-5.0 g/dL",
+      "Female": "3.5-5.0 g/dL"
+    },
+    "Medication": [
+      "No medication required"
+    ],
+    "Dosage": {
+      "N/A": "N/A"
+    },
+    "Reason": [
+      "Albumin is a key marker of liver synthetic function and nutritional status.",
+      "Normal levels indicate adequate protein intake and liver health."
+    ],
+    "Conclusion": "Albumin is within normal limits. Continue a balanced diet to support optimal nutritional status."
+  },
+  "Bilirubin": {
+    "Range": "(0.1, 1.2)",
+    "Current Level": "0.8 mg/dL",
+    "Age": {
+      "Baby (0-2 years)": "0.1-1.0 mg/dL",
+      "Child (3-12 years)": "0.1-1.0 mg/dL",
+      "Young Adult (20-35 years)": "0.1-1.2 mg/dL",
+      "Adult (36-64 years)": "0.1-1.2 mg/dL",
+      "Senior (65+ years)": "0.1-1.2 mg/dL"
+    },
+    "Sex": {
+      "Male": "0.1-1.2 mg/dL",
+      "Female": "0.1-1.2 mg/dL"
+    },
+    "Medication": [
+      "No medication required"
+    ],
+    "Dosage": {
+      "N/A": "N/A"
+    },
+    "Reason": [
+      "Normal bilirubin levels indicate efficient hepatic clearance and proper red blood cell turnover."
+    ],
+    "Conclusion": "Bilirubin is normal. No therapeutic intervention is necessary."
+  }
+}
