@@ -3,6 +3,7 @@ from tkinter import ttk, messagebox
 import csv
 import json
 import ast
+from datetime import date
 
 # -------------------------------
 # Load Diagnostic Data from JSON
@@ -40,7 +41,7 @@ def parse_range(range_value):
         return (None, None)
 
 # -------------------------------
-# Helper Function: Format Medication and Dosage (for full report)
+# Helper Function: Format Medication and Dosage (for reports)
 # -------------------------------
 def format_med_and_dosage(data):
     med_data = data.get("Medication", "N/A")
@@ -161,7 +162,7 @@ def load_csv_data(file_path):
         messagebox.showerror("Error", f"An error occurred: {e}")
 
 # -------------------------------
-# General Diagnostic Lookup Function
+# General Diagnostic Lookup Functions
 # -------------------------------
 def get_diagnostic_result(exam, result, age, sex):
     exam = exam.strip()
@@ -239,9 +240,6 @@ def get_diagnostic_result(exam, result, age, sex):
                           f"Dosage: {dosage_str}")
         return diagnosis_text
 
-# -------------------------------
-# Diagnostic Lookup with Abnormal Flag
-# -------------------------------
 def get_diagnostic_result_with_abnormal_flag(exam, result, age, sex):
     exam = exam.strip()
     if exam.lower() in ["choesterol"]:
@@ -319,7 +317,7 @@ def get_diagnostic_result_with_abnormal_flag(exam, result, age, sex):
         return (diagnosis_text, abnormal)
 
 # -------------------------------
-# Report Display Helper Function (for abnormal report)
+# Report Display Helper Function
 # -------------------------------
 def display_report_in_new_window(report_str, abnormal_count):
     title = f"Abnormal Diagnosis Report - {abnormal_count} Abnormal Result{'s' if abnormal_count != 1 else ''}"
@@ -383,23 +381,24 @@ def generate_abnormal_diagnosis_report():
         messagebox.showinfo("Abnormal Diagnosis Report", "No abnormal results found.")
 
 # -------------------------------
-# Generate Prescription Function (Simplified Format)
+# Generate Prescription Function
 # -------------------------------
 def generate_prescription():
     """
-    Generates a prescription letter (with Rx letterhead) that includes patient info,
-    lists abnormal exam results in a simplified format, and includes the treatment type.
-    Only exams that have a valid Medication recommendation (i.e. not 'N/A')
-    and a dosage not equal to 'N/A' will be included.
-    The prescription is saved to 'prescribed.txt' and then displayed.
+    Generates a simplified prescription letter (Rx) that includes:
+      - A letterhead with the current date and patient details.
+      - For each abnormal exam with a valid medication recommendation,
+        it displays only the medication name, dosage, and count (if count is not "0")
+        in the format:
+                [tab]Allopurinol Dosage: 100–300 mg daily 15x tablets
+      - The final signature block is right aligned.
     """
+    today_str = date.today().strftime("%B %d, %Y")
     patient_age = age_var.get()
     patient_sex = sex_var.get()
     patient_name = patient_name_var.get()
-
-    # Determine patient's age group.
     try:
-        age_val = float(patient_age)
+        age_val = float(age_var.get())
     except Exception:
         age_val = 0
     if 0 <= age_val <= 2:
@@ -417,62 +416,64 @@ def generate_prescription():
     else:
         age_group = "Unknown"
 
-    # Build the prescription letter header.
-    prescription = "Rx\n" + "=" * 40 + "\n\n"
-    prescription += f"Patient Name: {patient_name}\n"
-    prescription += f"Age: {patient_age}    Sex: {patient_sex}\n"
-    prescription += "=" * 40 + "\n\nPrescribed Medications:\n\n"
+    indent = "     "
+    # Build letterhead as per sample.
+    prescription = f"{indent}{'-' * 56}\n\n"
+    prescription += f"{indent}Date: {today_str}\n"
+    prescription += f"{indent}Name: {patient_name}\n"
+    prescription += f"{indent}Age: {age_var.get()}    Sex: {patient_sex}\n"
+    prescription += f"{indent}{'-' * 56}\n\n"
+    prescription += f"{indent}Prescribed Medications:\n\n"
     prescription_found = False
 
-    # Iterate through exam results.
+    # Iterate over exam results.
     for item in tree.get_children():
         values = tree.item(item, "values")
         if len(values) >= 2:
-            exam = values[0]
+            exam = values[0].strip()
             result = values[1]
-            # Check if abnormal using the diagnostic function.
-            _, is_abnormal = get_diagnostic_result_with_abnormal_flag(exam, result, patient_age, patient_sex)
+            # Only include abnormal exams.
+            _, is_abnormal = get_diagnostic_result_with_abnormal_flag(exam, result, age_var.get(), patient_sex)
             if is_abnormal:
-                diag_info = diagnostics.get(exam.strip(), {})
+                diag_info = diagnostics.get(exam, {})
                 if not diag_info:
                     continue
-                # Retrieve the medication recommendation.
                 medication = diag_info.get("Medication", "").strip()
-                # Only include if medication exists and is not 'N/A'
-                if not medication or medication == "N/A":
+                if not medication or medication.lower() in ["none", "n/a", "no medication required"]:
                     continue
                 if isinstance(medication, list):
-                    medication = " ".join(medication)
-                # Optionally, trim extra explanation if present.
-                if " is indicated" in medication:
-                    medication = medication.split(" is indicated")[0]
-                # Retrieve dosage for the appropriate age group.
-                dosage_info = diag_info.get("Dosage", "N/A")
+                    medication = ", ".join(medication)
+                dosage_info = diag_info.get("Dosage", {})
                 if isinstance(dosage_info, dict):
                     dosage = dosage_info.get(age_group, "N/A")
                 else:
                     dosage = dosage_info
-                # Skip this exam if dosage is 'N/A'
                 if dosage == "N/A":
                     continue
-                # Retrieve treatment type.
-                treatment = diag_info.get("Treatment", "Not specified")
-                # Add this exam to the prescription.
-                prescription += f"- {exam}:\n"
-                prescription += f"   Medication: {medication}\n"
-                prescription += f"   Dosage: {dosage}\n"
-                prescription += f"   Treatment: {treatment}\n\n"
+                count = diag_info.get("Count", "0")
+                # Build the prescription line.
+                if count != "0":
+                    prescription += f"\t{medication} Dosage: {dosage} {count}x tablets\n\n"
+                else:
+                    prescription += f"\t{medication} Dosage: {dosage}\n\n"
                 prescription_found = True
 
     if not prescription_found:
-        prescription += "No prescription required based on the results.\n"
+        prescription += f"{indent}No prescription required based on the current results.\n\n"
 
-    # Save the prescription to prescribed.txt
+    # Add the signature block aligned to the right.
+    prescription += "\n" + " " * 30 + "____________________________\n"
+    prescription += " " * 30 + "   Physician/Practitioner\n"
+
+    # Save file with a name based on Patient Name and Date.
+    safe_name = patient_name.replace(" ", "_")
+    safe_date = date.today().strftime("%B_%d_%Y")
+    filename = f"{safe_name}_{safe_date}.txt"
     try:
-        with open("prescribed.txt", "w", encoding="utf-8") as file:
+        with open(filename, "w", encoding="utf-8") as file:
             file.write(prescription)
     except Exception as e:
-        messagebox.showerror("Error", f"An error occurred while saving prescribed.txt: {e}")
+        messagebox.showerror("Error", f"An error occurred while saving {filename}: {e}")
 
     display_prescription_in_new_window(prescription)
 
