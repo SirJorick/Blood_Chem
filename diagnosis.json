@@ -14,6 +14,7 @@
         "Female": "70–99 mg/dL"
       },
       "Medication": "None. Continue balanced diet and regular exercise.",
+      "Alternative": [],
       "Dosage": {
         "Standard": "Not applicable."
       },
@@ -29,8 +30,8 @@
     "Prediabetes": {
       "Range": [100, 125],
       "Age": {
-        "Baby (0-2 years)": "Not applicable",
-        "Child (3-12 years)": "Not applicable",
+        "Baby (0-2 years)": "N/A",
+        "Child (3-12 years)": "N/A",
         "Young Adult (20-35 years)": "100–125 mg/dL; consider early intervention",
         "Adult (36-64 years)": "100–125 mg/dL; lifestyle changes are imperative",
         "Senior (65+ years)": "100–125 mg/dL; initiate careful monitoring and lifestyle adjustments"
@@ -39,14 +40,17 @@
         "Male": "100–125 mg/dL; assess for insulin resistance",
         "Female": "100–125 mg/dL; assess for insulin resistance"
       },
-      "Medication": "Lifestyle modification; consider metformin if needed.",
+      "Medication": "Metformin",
+      "Alternative": [
+        "Metformin XR 500 mg once daily (if available)"
+      ],
       "Dosage": {
         "Young Adult (20-35 years)": "Metformin 500 mg twice daily with meals, titrate as needed.",
         "Adult (36-64 years)": "Metformin 500 mg three times daily with meals; adjust based on response.",
         "Senior (65+ years)": "Metformin 500 mg twice daily with meals, starting at the lowest dose with renal monitoring."
       },
       "Count": "15",
-      "Treatment": "As prescribed",
+      "Treatment": "As treated",
       "Reason": [
         "Fasting blood sugar in the 100–125 mg/dL range indicates impaired fasting glucose and increased risk for type 2 diabetes.",
         "Risk factors such as poor sleep, smoking, and excessive alcohol consumption can exacerbate insulin resistance.",
@@ -57,7 +61,7 @@
     "Diabetes": {
       "Range": [126, null],
       "Age": {
-        "Baby (0-2 years)": "Not applicable",
+        "Baby (0-2 years)": "N/A",
         "Child (3-12 years)": "Requires pediatric endocrinology evaluation",
         "Young Adult (20-35 years)": "≥126 mg/dL; requires prompt management",
         "Adult (36-64 years)": "≥126 mg/dL; confirm diagnosis and initiate a comprehensive diabetes care plan",
@@ -68,13 +72,17 @@
         "Female": "≥126 mg/dL; immediate management indicated"
       },
       "Medication": "Metformin",
+      "Alternative": [
+        "Metformin XR 500 mg once daily",
+        "Glipizide 5 mg once daily (if metformin is contraindicated)"
+      ],
       "Dosage": {
         "Young Adult (20-35 years)": "Metformin 500 mg twice daily with meals, titrate as needed.",
         "Adult (36-64 years)": "Metformin 500 mg three times daily with meals; adjust dose based on response.",
         "Senior (65+ years)": "Metformin 500 mg twice daily with meals; start at a low dose with renal monitoring."
       },
       "Count": "15",
-      "Treatment": "As prescribed",
+      "Treatment": "As treated",
       "Reason": [
         "A fasting blood sugar ≥126 mg/dL is diagnostic for diabetes, indicating significant impairment in glucose regulation.",
         "Contributing factors such as chronic sleep deprivation, smoking, and heavy alcohol use further worsen glycemic control.",
@@ -97,6 +105,7 @@
       "Female": "7–20 mg/dL"
     },
     "Medication": "None required.",
+    "Alternative": [],
     "Dosage": {
       "Standard": "Not applicable."
     },
@@ -121,6 +130,7 @@
       "Female": "0.5–1.1 mg/dL"
     },
     "Medication": "No medication if normal; consult nephrology if elevated.",
+    "Alternative": [],
     "Dosage": {
       "Standard": "Not applicable."
     },
@@ -146,6 +156,9 @@
       "Female": "2.6–6.0 mg/dL"
     },
     "Medication": "Allopurinol",
+    "Alternative": [
+      "Febuxostat 40 mg once daily; may increase to 80 mg once daily if needed."
+    ],
     "Dosage": {
       "Young Adult (20-35 years)": "Start at 100 mg once daily; titrate as needed.",
       "Adult (36-64 years)": "100–300 mg daily",
@@ -174,6 +187,10 @@
       "Female": "125–200 mg/dL"
     },
     "Medication": "Atorvastatin",
+    "Alternative": [
+      "Simvastatin 20 mg once daily",
+      "Rosuvastatin 10 mg once daily"
+    ],
     "Dosage": {
       "Young Adult (20-35 years)": "Atorvastatin 10 mg once daily; adjust based on LDL goals.",
       "Adult (36-64 years)": "Atorvastatin 20–40 mg once daily; titrate as needed.",
@@ -201,6 +218,9 @@
       "Female": "0–150 mg/dL"
     },
     "Medication": "Fenofibrate",
+    "Alternative": [
+      "Gemfibrozil 600 mg twice daily"
+    ],
     "Dosage": {
       "Young Adult (20-35 years)": "Fenofibrate 145 mg once daily.",
       "Adult (36-64 years)": "Fenofibrate 145 mg once daily.",
@@ -229,6 +249,7 @@
       "Female": "5–40 mg/dL"
     },
     "Medication": "Lifestyle modifications; statin therapy may be considered if indicated.",
+    "Alternative": [],
     "Dosage": {
       "Standard": "Not applicable specifically for VLDL."
     },
@@ -255,6 +276,9 @@
       "Female": "40–65 mg/dL"
     },
     "Medication": "Niacin",
+    "Alternative": [
+      "Extended-release niacin (Niaspan) 500 mg twice daily with meals"
+    ],
     "Dosage": {
       "Young Adult (20-35 years)": "Niacin 500 mg once daily, titrate gradually if tolerated.",
       "Adult (36-64 years)": "Niacin 500 mg twice daily with meals.",
@@ -283,6 +307,10 @@
       "Female": "0–150 mg/dL"
     },
     "Medication": "Statins (if indicated)",
+    "Alternative": [
+      "Simvastatin 20 mg once daily",
+      "Pravastatin 40 mg once daily"
+    ],
     "Dosage": {
       "Standard": "Initiate statin therapy per established guidelines if indicated by overall cardiovascular risk; otherwise, no medication is required."
     },
@@ -309,6 +337,7 @@
       "Female": "0–4.5"
     },
     "Medication": "Lifestyle modifications; consider statin therapy if indicated.",
+    "Alternative": [],
     "Dosage": {
       "Standard": "Refer to statin dosing guidelines if therapy is initiated."
     },
@@ -335,6 +364,9 @@
       "Female": "7–56 U/L"
     },
     "Medication": "Silymarin",
+    "Alternative": [
+      "Milk thistle extract (generic) 140 mg three times daily with meals"
+    ],
     "Dosage": {
       "Young Adult (20-35 years)": "Silymarin 140 mg three times daily with meals.",
       "Adult (36-64 years)": "Silymarin 140 mg three times daily with meals.",
@@ -363,6 +395,7 @@
       "Female": "10–40 U/L"
     },
     "Medication": "No medication required.",
+    "Alternative": [],
     "Dosage": {
       "Standard": "Not applicable."
     },
@@ -388,6 +421,10 @@
       "Female": "4.0–5.6 %"
     },
     "Medication": "Metformin",
+    "Alternative": [
+      "Metformin XR 500 mg once daily",
+      "Glipizide 5 mg once daily (if metformin is contraindicated)"
+    ],
     "Dosage": {
       "Young Adult (20-35 years)": "Metformin 500 mg twice daily with meals; titrate based on glycemic response.",
       "Adult (36-64 years)": "Metformin 500 mg three times",
@@ -417,6 +454,7 @@
       "Female": "135–145 mEq/L"
     },
     "Medication": "No medication required.",
+    "Alternative": [],
     "Dosage": {
       "Standard": "Not applicable."
     },
@@ -442,6 +480,7 @@
       "Female": "3.5–5.0 mEq/L"
     },
     "Medication": "No medication required if within normal limits.",
+    "Alternative": [],
     "Dosage": {
       "Standard": "Not applicable.",
       "If Hypokalemia": "Oral potassium chloride 20–40 mEq every 8 hours or IV potassium chloride 10–20 mEq per hour (with monitoring)."
@@ -468,6 +507,7 @@
       "Female": "4.0–11.0 x 10^3/μL"
     },
     "Medication": "No medication required.",
+    "Alternative": [],
     "Dosage": {
       "Standard": "Not applicable."
     },
@@ -493,6 +533,10 @@
       "Female": "8.5–10.2 mg/dL"
     },
     "Medication": "Calcium supplementation only if a deficiency is documented.",
+    "Alternative": [
+      "Calcium carbonate 500 mg twice daily",
+      "Calcium citrate 250 mg three times daily"
+    ],
     "Dosage": {
       "Low Calcium": "Typically 500–1000 mg of elemental calcium daily, divided into 2–3 doses."
     },
@@ -519,6 +563,10 @@
       "Female": "1.7–2.2 mg/dL"
     },
     "Medication": "Magnesium supplementation if levels are low.",
+    "Alternative": [
+      "Magnesium oxide 400 mg once daily",
+      "Magnesium citrate 200 mg twice daily"
+    ],
     "Dosage": {
       "Low Magnesium": "200–400 mg daily, adjusted based on clinical response."
     },
@@ -545,6 +593,9 @@
       "Female": "2.5–4.5 mg/dL"
     },
     "Medication": "Phosphorus supplementation only if a deficiency is confirmed.",
+    "Alternative": [
+      "Potassium phosphate 250 mg once daily"
+    ],
     "Dosage": {
       "Low Phosphorus": "Dosage should be individualized based on the severity of deficiency."
     },
@@ -571,6 +622,7 @@
       "Female": "3.5–5.0 g/dL"
     },
     "Medication": "No medication required if albumin is normal.",
+    "Alternative": [],
     "Dosage": {
       "Standard": "Not applicable."
     },
@@ -597,6 +649,7 @@
       "Female": "0.1–1.2 mg/dL"
     },
     "Medication": "No medication required if bilirubin is normal.",
+    "Alternative": [],
     "Dosage": {
       "Standard": "Not applicable."
     },
@@ -606,5 +659,34 @@
       "Normal bilirubin indicates effective hepatic clearance and normal red blood cell turnover."
     ],
     "Conclusion": "Bilirubin is normal. No treatment is necessary; untreated abnormalities can indicate liver dysfunction."
+  },
+  "Cardiac_Risk": {
+    "Range": [null, null],
+    "Current Level": "N/A",
+    "Age": {
+      "Baby (0-2 years)": "N/A",
+      "Child (3-12 years)": "N/A",
+      "Young Adult (20-35 years)": "Evaluate for cardiac risk factors",
+      "Adult (36-64 years)": "Evaluate for myocardial ischemia and metabolic stress",
+      "Senior (65+ years)": "Evaluate for myocardial ischemia and metabolic stress"
+    },
+    "Sex": {
+      "Male": "Evaluate",
+      "Female": "Evaluate"
+    },
+    "Medication": ["Trimetazidine", "Vitamin B1+B6+B12", "Simvastatin"],
+    "Alternative": [],
+    "Dosage": {
+      "Young Adult (20-35 years)": "Trimetazidine 35 mg once daily; Vitamin B complex as per formulation; Simvastatin 20 mg once daily",
+      "Adult (36-64 years)": "Trimetazidine 35 mg once daily; Vitamin B complex as per formulation; Simvastatin 20 mg once daily",
+      "Senior (65+ years)": "Trimetazidine 35 mg once daily; Vitamin B complex as per formulation; Simvastatin 10 mg once daily"
+    },
+    "Count": "0",
+    "Treatment": "As indicated",
+    "Reason": [
+      "Cardiac evaluation suggests the presence of risk factors that may benefit from myocardial metabolic support, neuroprotection, and lipid management.",
+      "Trimetazidine helps optimize myocardial energy metabolism, while vitamin B supplementation supports nerve and cellular function, and Simvastatin aids in lipid lowering."
+    ],
+    "Conclusion": "Cardiac risk factors are present. Consider adjunctive therapy with trimetazidine, vitamin B supplementation, and simvastatin as part of the overall management strategy."
   }
 }

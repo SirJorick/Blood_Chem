@@ -6,6 +6,20 @@ import ast
 from datetime import date
 
 # -------------------------------
+# Robust Exam Name Standardization Mapping
+# -------------------------------
+EXAM_STANDARDIZATION = {
+    "choesterol": "Cholesterol",
+    "cholesterol": "Cholesterol",
+    "hba1c": "HbA1C",
+    # Add more variations as needed.
+}
+
+def standardize_exam_name(exam):
+    exam_lower = exam.lower().strip()
+    return EXAM_STANDARDIZATION.get(exam_lower, exam)
+
+# -------------------------------
 # Load Diagnostic Data from JSON
 # -------------------------------
 try:
@@ -24,14 +38,19 @@ except Exception as e:
 def parse_range(range_value):
     """
     Convert the range value (which may be a string like "(70, 105)" or a list)
-    into a tuple of numbers.
+    into a tuple of numbers. If the range is not numerical (e.g. [null, null]),
+    return (None, None).
     """
     if isinstance(range_value, (list, tuple)):
+        if all(v is None for v in range_value):
+            return (None, None)
         return tuple(range_value)
     elif isinstance(range_value, str):
         try:
             parsed = ast.literal_eval(range_value)
             if isinstance(parsed, (list, tuple)):
+                if all(v is None for v in parsed):
+                    return (None, None)
                 return tuple(parsed)
             else:
                 return (None, None)
@@ -60,6 +79,54 @@ def format_med_and_dosage(data):
     else:
         dosage_str = str(dosage_data)
     return med_str, dosage_str
+
+# -------------------------------
+# Helper Function: Lookup Reference (case-insensitive)
+# -------------------------------
+def lookup_reference(ref_dict, key):
+    if not isinstance(ref_dict, dict):
+        return "N/A"
+    # Try direct lookup.
+    if key in ref_dict:
+        return ref_dict[key]
+    # Otherwise, look for a case-insensitive match.
+    for k, v in ref_dict.items():
+        if k.lower().strip() == key.lower().strip():
+            return v
+    return "N/A"
+
+# -------------------------------
+# Dynamic Age Group Determination
+# -------------------------------
+def determine_age_group(age_value, exam_diagnostic=None):
+    """
+    Returns an age group string based on the provided age.
+    If the diagnostic JSON does not include a specific group (e.g., Teen),
+    it defaults to a close match.
+    """
+    try:
+        age = float(age_value)
+    except Exception:
+        age = 0
+
+    if 0 <= age <= 2:
+        group = "Baby (0-2 years)"
+    elif 3 <= age <= 12:
+        group = "Child (3-12 years)"
+    elif 13 <= age <= 19:
+        group = "Teen (13-19 years)"
+        if exam_diagnostic:
+            if "Teen (13-19 years)" not in exam_diagnostic.get("Age", {}):
+                group = "Young Adult (20-35 years)"
+    elif 20 <= age <= 35:
+        group = "Young Adult (20-35 years)"
+    elif 36 <= age <= 64:
+        group = "Adult (36-64 years)"
+    elif age >= 65:
+        group = "Senior (65+ years)"
+    else:
+        group = "Unknown"
+    return group
 
 # -------------------------------
 # Tkinter GUI Setup
@@ -117,6 +184,9 @@ report_text.pack(fill=tk.BOTH, expand=True)
 # -------------------------------
 # CSV Data Loading Function
 # -------------------------------
+REQUIRED_HEADERS = ["Control No.", "Date:", "Patient Name:", "SEX", "Birthday", "AGE",
+                    "EXAMINTATION", "Conventional", "UNITS", "REF_Con", "RESULT", "SI Units", "REF_SI"]
+
 def load_csv_data(file_path):
     """
     Load CSV data.
@@ -127,7 +197,10 @@ def load_csv_data(file_path):
         with open(file_path, newline='', encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile)
             headers = [h.strip() for h in reader.fieldnames]
-            print("CSV Headers:", headers)
+            missing = [h for h in REQUIRED_HEADERS if h not in headers]
+            if missing:
+                messagebox.showerror("Error", f"Missing required CSV headers: {', '.join(missing)}")
+                return
             for row in reader:
                 row = {k.strip(): (v.strip() if v is not None else "") for k, v in row.items()}
                 if not patient_info_set:
@@ -165,130 +238,123 @@ def load_csv_data(file_path):
 # General Diagnostic Lookup Functions
 # -------------------------------
 def get_diagnostic_result(exam, result, age, sex):
-    exam = exam.strip()
-    if exam.lower() in ["choesterol"]:
-        exam = "Cholesterol"
+    exam = standardize_exam_name(exam)
     diag_info = diagnostics.get(exam)
     if not diag_info:
         return f"No diagnostic data available for exam: {exam}"
-    try:
-        value = float(result.split()[0])
-    except Exception:
-        return f"Invalid result value for {exam}: {result}"
-    try:
-        age_value = float(age)
-    except Exception:
-        age_value = 0
-    if 0 <= age_value <= 2:
-        age_group = "Baby (0-2 years)"
-    elif 3 <= age_value <= 12:
-        age_group = "Child (3-12 years)"
-    elif 13 <= age_value <= 19:
-        age_group = "Teen (13-19 years)"
-    elif 20 <= age_value <= 35:
-        age_group = "Young Adult (20-35 years)"
-    elif 36 <= age_value <= 64:
-        age_group = "Adult (36-64 years)"
-    elif age_value >= 65:
-        age_group = "Senior (65+ years)"
-    else:
-        age_group = "Unknown"
+    # Top-level structure (if "Range" exists)
     if "Range" in diag_info:
         r_min, r_max = parse_range(diag_info.get("Range", (None, None)))
-        age_ref = diag_info.get("Age", {}).get(age_group, "N/A")
-        sex_ref = diag_info.get("Sex", {}).get(sex, "N/A")
+        try:
+            value = float(result.split()[0])
+        except Exception:
+            return f"Invalid result value for {exam}: {result}"
+        abnormal = not (r_min <= value <= r_max)
+        age_group = determine_age_group(age, exam_diagnostic=diag_info)
+        age_ref = lookup_reference(diag_info.get("Age", {}), age_group)
+        sex_ref = lookup_reference(diag_info.get("Sex", {}), sex)
         conclusion = diag_info.get("Conclusion", "Result is within normal range.")
         med_str, dosage_str = format_med_and_dosage(diag_info)
-        if r_min is not None and r_max is not None and not (r_min <= value <= r_max):
-            diagnosis_text = f"Diagnosis for {exam}: Abnormal result ({value}).\n"
-        else:
-            diagnosis_text = f"Diagnosis for {exam}:\n"
+        alt_data = diag_info.get("Alternative", [])
+        alt_str = ", ".join(alt_data) if isinstance(alt_data, list) and alt_data else (alt_data or "N/A")
+        count_val = diag_info.get("Count", "0")
+        diagnosis_text = f"Diagnosis for {exam}: "
+        diagnosis_text += f"Abnormal result ({value}).\n" if abnormal else "\n"
         diagnosis_text += (f"Result: {value}\n"
                            f"Reference for {age_group}: {age_ref}\n"
                            f"Reference for {sex}: {sex_ref}\n\n"
                            f"{conclusion}\n"
                            f"Medication: {med_str}\n"
-                           f"Dosage: {dosage_str}")
+                           f"Dosage: {dosage_str}\n"
+                           f"Alternative: {alt_str}\n"
+                           f"Dosage Count: {count_val}")
         return diagnosis_text
     else:
+        # Nested structure (e.g., FBS with Normal/Prediabetes/Diabetes)
+        try:
+            value = float(result.split()[0])
+        except Exception:
+            return f"Invalid result value for {exam}: {result}"
+        age_group = determine_age_group(age)
         for category, cat in diag_info.items():
             r_min, r_max = parse_range(cat.get("Range", (None, None)))
             if r_min is not None and r_max is not None and r_min <= value <= r_max:
-                age_ref = cat.get("Age", {}).get(age_group, "N/A")
-                sex_ref = cat.get("Sex", {}).get(sex, "N/A")
+                age_ref = lookup_reference(cat.get("Age", {}), age_group)
+                sex_ref = lookup_reference(cat.get("Sex", {}), sex)
                 conclusion = cat.get("Conclusion", "")
                 med_str, dosage_str = format_med_and_dosage(cat)
+                alt_data = cat.get("Alternative", [])
+                alt_str = ", ".join(alt_data) if isinstance(alt_data, list) and alt_data else (alt_data or "N/A")
+                count_val = cat.get("Count", "0")
                 return (f"Diagnosis for {exam} ({category}):\n"
                         f"Result: {value}\n"
                         f"Reference for {age_group}: {age_ref}\n"
                         f"Reference for {sex}: {sex_ref}\n\n"
                         f"{conclusion}\n"
                         f"Medication: {med_str}\n"
-                        f"Dosage: {dosage_str}")
+                        f"Dosage: {dosage_str}\n"
+                        f"Alternative: {alt_str}\n"
+                        f"Dosage Count: {count_val}")
+        # If no subcategory matches, default to the first category.
         first_category = list(diag_info.values())[0]
         r_min, r_max = parse_range(first_category.get("Range", (None, None)))
-        age_ref = first_category.get("Age", {}).get(age_group, "N/A")
-        sex_ref = first_category.get("Sex", {}).get(sex, "N/A")
+        age_ref = lookup_reference(first_category.get("Age", {}), age_group)
+        sex_ref = lookup_reference(first_category.get("Sex", {}), sex)
         conclusion = first_category.get("Conclusion", "")
         med_str, dosage_str = format_med_and_dosage(first_category)
+        alt_data = first_category.get("Alternative", [])
+        alt_str = ", ".join(alt_data) if isinstance(alt_data, list) and alt_data else (alt_data or "N/A")
+        count_val = first_category.get("Count", "0")
         diagnosis_text = (f"Diagnosis for {exam}: Abnormal result ({value}).\n"
                           f"Result: {value}\n"
                           f"Reference for {age_group}: {age_ref}\n"
                           f"Reference for {sex}: {sex_ref}\n\n"
                           f"{conclusion}\n"
                           f"Medication: {med_str}\n"
-                          f"Dosage: {dosage_str}")
+                          f"Dosage: {dosage_str}\n"
+                          f"Alternative: {alt_str}\n"
+                          f"Dosage Count: {count_val}")
         return diagnosis_text
 
 def get_diagnostic_result_with_abnormal_flag(exam, result, age, sex):
-    exam = exam.strip()
-    if exam.lower() in ["choesterol"]:
-        exam = "Cholesterol"
+    exam = standardize_exam_name(exam)
     diag_info = diagnostics.get(exam)
     if not diag_info:
         return (f"No diagnostic data available for exam: {exam}", False)
-    try:
-        value = float(result.split()[0])
-    except Exception:
-        return (f"Invalid result value for {exam}: {result}", False)
-    try:
-        age_value = float(age)
-    except Exception:
-        age_value = 0
-    if 0 <= age_value <= 2:
-        age_group = "Baby (0-2 years)"
-    elif 3 <= age_value <= 12:
-        age_group = "Child (3-12 years)"
-    elif 13 <= age_value <= 19:
-        age_group = "Teen (13-19 years)"
-    elif 20 <= age_value <= 35:
-        age_group = "Young Adult (20-35 years)"
-    elif 36 <= age_value <= 64:
-        age_group = "Adult (36-64 years)"
-    elif age_value >= 65:
-        age_group = "Senior (65+ years)"
-    else:
-        age_group = "Unknown"
+    # Top-level (non-nested) structure:
     if "Range" in diag_info:
         r_min, r_max = parse_range(diag_info.get("Range", (None, None)))
-        age_ref = diag_info.get("Age", {}).get(age_group, "N/A")
-        sex_ref = diag_info.get("Sex", {}).get(sex, "N/A")
+        try:
+            value = float(result.split()[0])
+        except Exception:
+            return (f"Invalid result value for {exam}: {result}", False)
+        abnormal = not (r_min <= value <= r_max)
+        age_group = determine_age_group(age, exam_diagnostic=diag_info)
+        age_ref = lookup_reference(diag_info.get("Age", {}), age_group)
+        sex_ref = lookup_reference(diag_info.get("Sex", {}), sex)
         conclusion = diag_info.get("Conclusion", "Result is within normal range.")
         med_str, dosage_str = format_med_and_dosage(diag_info)
-        if r_min is not None and r_max is not None and not (r_min <= value <= r_max):
-            diagnosis_text = f"Diagnosis for {exam}: Abnormal result ({value}).\n"
-            abnormal = True
-        else:
-            diagnosis_text = f"Diagnosis for {exam}:\n"
-            abnormal = False
+        alt_data = diag_info.get("Alternative", [])
+        alt_str = ", ".join(alt_data) if isinstance(alt_data, list) and alt_data else (alt_data or "N/A")
+        count_val = diag_info.get("Count", "0")
+        diagnosis_text = f"Diagnosis for {exam}: "
+        diagnosis_text += f"Abnormal result ({value}).\n" if abnormal else "\n"
         diagnosis_text += (f"Result: {value}\n"
                            f"Reference for {age_group}: {age_ref}\n"
                            f"Reference for {sex}: {sex_ref}\n\n"
                            f"{conclusion}\n"
                            f"Medication: {med_str}\n"
-                           f"Dosage: {dosage_str}")
+                           f"Dosage: {dosage_str}\n"
+                           f"Alternative: {alt_str}\n"
+                           f"Dosage Count: {count_val}")
         return (diagnosis_text, abnormal)
     else:
+        # Nested structure (e.g., FBS with multiple categories)
+        try:
+            value = float(result.split()[0])
+        except Exception:
+            return (f"Invalid result value for {exam}: {result}", False)
+        age_group = determine_age_group(age)
         chosen_category = None
         abnormal = False
         for category, cat in diag_info.items():
@@ -303,17 +369,22 @@ def get_diagnostic_result_with_abnormal_flag(exam, result, age, sex):
             chosen_category = (category, cat)
             abnormal = True
         category, cat = chosen_category
-        age_ref = cat.get("Age", {}).get(age_group, "N/A")
-        sex_ref = cat.get("Sex", {}).get(sex, "N/A")
+        age_ref = lookup_reference(cat.get("Age", {}), age_group)
+        sex_ref = lookup_reference(cat.get("Sex", {}), sex)
         conclusion = cat.get("Conclusion", "")
         med_str, dosage_str = format_med_and_dosage(cat)
+        alt_data = cat.get("Alternative", [])
+        alt_str = ", ".join(alt_data) if isinstance(alt_data, list) and alt_data else (alt_data or "N/A")
+        count_val = cat.get("Count", "0")
         diagnosis_text = (f"Diagnosis for {exam} ({category}):\n"
                           f"Result: {value}\n"
                           f"Reference for {age_group}: {age_ref}\n"
                           f"Reference for {sex}: {sex_ref}\n\n"
                           f"{conclusion}\n"
                           f"Medication: {med_str}\n"
-                          f"Dosage: {dosage_str}")
+                          f"Dosage: {dosage_str}\n"
+                          f"Alternative: {alt_str}\n"
+                          f"Dosage Count: {count_val}")
         return (diagnosis_text, abnormal)
 
 # -------------------------------
@@ -388,9 +459,7 @@ def generate_prescription():
     Generates a simplified prescription letter (Rx) that includes:
       - A letterhead with the current date and patient details.
       - For each abnormal exam with a valid medication recommendation,
-        it displays only the medication name, dosage, and count (if count is not "0")
-        in the format:
-                [tab]Allopurinol Dosage: 100–300 mg daily 15x tablets
+        it displays only the medication name, dosage, count, and treatment type.
       - The final signature block is right aligned.
     """
     today_str = date.today().strftime("%B %d, %Y")
@@ -401,23 +470,9 @@ def generate_prescription():
         age_val = float(age_var.get())
     except Exception:
         age_val = 0
-    if 0 <= age_val <= 2:
-        age_group = "Baby (0-2 years)"
-    elif 3 <= age_val <= 12:
-        age_group = "Child (3-12 years)"
-    elif 13 <= age_val <= 19:
-        age_group = "Teen (13-19 years)"
-    elif 20 <= age_val <= 35:
-        age_group = "Young Adult (20-35 years)"
-    elif 36 <= age_val <= 64:
-        age_group = "Adult (36-64 years)"
-    elif age_val >= 65:
-        age_group = "Senior (65+ years)"
-    else:
-        age_group = "Unknown"
-
+    age_group = determine_age_group(age_val)
     indent = "     "
-    # Build letterhead as per sample.
+    # Build letterhead.
     prescription = f"{indent}{'-' * 56}\n\n"
     prescription += f"{indent}Date: {today_str}\n"
     prescription += f"{indent}Name: {patient_name}\n"
@@ -431,11 +486,10 @@ def generate_prescription():
         values = tree.item(item, "values")
         if len(values) >= 2:
             exam = values[0].strip()
-            result = values[1]
-            # Only include abnormal exams.
+            result = values[1].strip()
             _, is_abnormal = get_diagnostic_result_with_abnormal_flag(exam, result, age_var.get(), patient_sex)
             if is_abnormal:
-                diag_info = diagnostics.get(exam, {})
+                diag_info = diagnostics.get(standardize_exam_name(exam), {})
                 if not diag_info:
                     continue
                 medication = diag_info.get("Medication", "").strip()
@@ -451,11 +505,15 @@ def generate_prescription():
                 if dosage == "N/A":
                     continue
                 count = diag_info.get("Count", "0")
-                # Build the prescription line.
+                treatment = diag_info.get("Treatment", "")
                 if count != "0":
-                    prescription += f"\t{medication} Dosage: {dosage} {count}x tablets\n\n"
+                    prescription += f"\t{medication} Dosage: {dosage} {count}x tablets\n"
                 else:
-                    prescription += f"\t{medication} Dosage: {dosage}\n\n"
+                    prescription += f"\t{medication} Dosage: {dosage}\n"
+                if treatment:
+                    prescription += f"\tTreatment: {treatment}\n\n"
+                else:
+                    prescription += "\n"
                 prescription_found = True
 
     if not prescription_found:
@@ -465,7 +523,6 @@ def generate_prescription():
     prescription += "\n" + " " * 30 + "____________________________\n"
     prescription += " " * 30 + "   Physician/Practitioner\n"
 
-    # Save file with a name based on Patient Name and Date.
     safe_name = patient_name.replace(" ", "_")
     safe_date = date.today().strftime("%B_%d_%Y")
     filename = f"{safe_name}_{safe_date}.txt"
